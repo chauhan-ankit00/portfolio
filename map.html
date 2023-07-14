@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Map</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkhkkaYHoiqym_I8GKMwg2pSQ5Uq8mrYU"></script>
+    <script>
+      function initMap() {
+        // Create a new map instance
+        const map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 0, lng: 0 },
+          zoom: 8,
+        });
+
+       
+
+        navigator.geolocation.getCurrentPosition((position) => {
+          const { latitude, longitude } = position.coords;
+
+         
+          const marker = new google.maps.Marker({
+            position: { lat: latitude, lng: longitude },
+            map: map,
+            title: "Your Location",
+          });
+
+          
+
+          navigator.geolocation.watchPosition((position) => {
+            const { latitude, longitude } = position.coords;
+
+            
+            marker.setPosition({ lat: latitude, lng: longitude });
+          });
+        });
+      }
+    </script>
+  </head>
+  <body onload="initMap()">
+    <div id="map" style="height: 500px;"></div>
+  </body>
+</html>
